@@ -7,7 +7,7 @@ CVE-2014-6271
 
 #desc
 
-Scan GNU Bash Env Command Injection via Google. 
+Exploit GNU Bash Env Command Injection via Google. 
 
 
 optional arguments:
