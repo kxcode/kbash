@@ -30,14 +30,17 @@ class Google(threading.Thread):
 		threading.Thread.__init__(self)
 
 	def run(self):
-		for i in range(0, self.count):
-			self.google(dork, i)
-			if not self.targets.empty():
-				self.launch = True
-			else:
-				self.launch = False
-			time.sleep(random.random()*3)
-		self.launch = True
+		try:
+			for i in range(0, self.count):
+				self.google(dork, i)
+				if not self.targets.empty():
+					self.launch = True
+				else:
+					self.launch = False
+				time.sleep(random.random()*3)
+			self.launch = True
+		except Exception as e:
+			print e
 		print "Google Search Done"
 
 	def google(self, dork, index):
@@ -88,7 +91,11 @@ if args.proxy:
 		proxy = urlparse.urlparse(args.proxy)
 		(scheme,host,port) = (proxy.scheme,proxy.hostname,proxy.port)
 		print "[ PROXY ]\t"+ scheme + "://" + host + ":" + str(port)
-		import socks
+		try:
+			import socks
+		except ImportError:
+		    print("For Proxy Support, Please Download socks.py From Sockipy Project.")
+		    sys.exit(1)
 		if proxy.scheme == "socks5":
 			proxy_type = socks.PROXY_TYPE_SOCKS5
 		elif proxy.scheme == "socks4":
