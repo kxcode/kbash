@@ -17,6 +17,8 @@ optional arguments:
 -  -t THREAD_COUNT  thread count
 -  -c PAGE_COUNT    google page count
 -  -e CMD           Command to Execute
+-  -d DORK          Custom Google Dork
+-  -p PROXY         Proxy String
 
 kbash will print the status_code and url for each target responsed to exploitation.
 
@@ -24,6 +26,6 @@ kbash will print the status_code and url for each target responsed to exploitati
 For socks proxy support. 
   1. Download Sockipy project from http://sourceforge.net/projects/socksipy/?source=directory.
   2. Copy the socks.py into the same directory as kbash.py
-  3. if you dont need proxy, you can delete the three lines near the comment "PROXY"
+  3. If you dont need proxy, you can delete the several lines near the comment "#PROXY CODE"
 
 
