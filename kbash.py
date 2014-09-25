@@ -63,7 +63,7 @@ class Google(threading.Thread):
 
 
 USAGE = "exp -t thread -c page_count -e command"
-DESC  = "Batch Exploit GNU Bash Env Command Injection via Google. Version 1.1 \n code by kingx  -   http://cih.so"
+DESC  = "Batch Exploit GNU Bash Env Command Injection base on Google. Version 1.1 \n code by kingx  -   http://cih.so"
 epilog = "License, requests, etc: https://github.com/KxCode"
 parser = argparse.ArgumentParser(usage=USAGE, description=DESC, epilog=epilog)
 parser.add_argument('-t', dest='thread_count',
