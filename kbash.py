@@ -63,7 +63,7 @@ class Google(threading.Thread):
 
 
 USAGE = "exp -t thread -c page_count -e command"
-DESC  = "Batch Exploit GNU Bash Env Command Injection via Google. \n code by kingx  -   http://cih.so"
+DESC  = "Batch Exploit GNU Bash Env Command Injection via Google. Version 1.1 \n code by kingx  -   http://cih.so"
 epilog = "License, requests, etc: https://github.com/KxCode"
 parser = argparse.ArgumentParser(usage=USAGE, description=DESC, epilog=epilog)
 parser.add_argument('-t', dest='thread_count',
@@ -72,7 +72,7 @@ parser.add_argument('-t', dest='thread_count',
                     default=4)
 parser.add_argument('-c', dest='page_count',
 					type=int,
-                    help="google page count",
+                    help="crawl google page count",
                     default=1)
 parser.add_argument('-d', dest='dork',
                     help="Custom Google Dork",
