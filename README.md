@@ -1,7 +1,7 @@
 kbash
 =====
 
-Scan GNU Bash Env Command Injection via Google.
+Exploit GNU Bash Env Command Injection via Google.
 
 CVE-2014-6271
 
