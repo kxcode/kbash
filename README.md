@@ -9,7 +9,10 @@ CVE-2014-6271
 
 Scan GNU Bash Env Command Injection via Google. 
 
+
 optional arguments:
+
+
   -h, --help       show this help message and exit
   -t THREAD_COUNT  thread count
   -c PAGE_COUNT    google page count
