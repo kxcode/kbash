@@ -26,6 +26,5 @@ kbash will print the status_code and url for each target responsed to exploitati
 For socks proxy support. 
   1. Download Sockipy project from http://sourceforge.net/projects/socksipy/?source=directory.
   2. Copy the socks.py into the same directory as kbash.py
-  3. If you dont need proxy, you can delete the several lines near the comment "#PROXY CODE"
 
 
