@@ -13,10 +13,10 @@ Scan GNU Bash Env Command Injection via Google.
 optional arguments:
 
 
-  -h, --help       show this help message and exit
-  -t THREAD_COUNT  thread count
-  -c PAGE_COUNT    google page count
-  -e CMD           Command to Execute
+-  -h, --help       show this help message and exit
+-  -t THREAD_COUNT  thread count
+-  -c PAGE_COUNT    google page count
+-  -e CMD           Command to Execute
 
 kbash will print the status_code and url for each target responsed to exploit.
 
