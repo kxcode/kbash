@@ -65,17 +65,17 @@ class Google(threading.Thread):
 
 
 
-USAGE = "exp -t thread -c page_count -e command"
-DESC  = "Scan GNU Bash Env Command Injection via Google. \n code by kingx  -   http://cih.so"
+USAGE = "python kbash.py -t thread_count -c page_count -e command"
+DESC  = "Exploit GNU Bash Env Command Injection via Google. \n code by kingx  -   http://cih.so"
 epilog = "License, requests, etc: https://github.com/KxCode"
 parser = argparse.ArgumentParser(usage=USAGE, description=DESC, epilog=epilog)
 parser.add_argument('-t', dest='thread_count',
 					type=int,
-                    help="thread count",
+                    help="Thread Count",
                     default=4)
 parser.add_argument('-c', dest='page_count',
 					type=int,
-                    help="google page count",
+                    help="Google Page Count",
                     default=1)
 parser.add_argument('-e', dest='cmd',
                     help="Command to Execute",
