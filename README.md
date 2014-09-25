@@ -18,7 +18,7 @@ optional arguments:
 -  -c PAGE_COUNT    google page count
 -  -e CMD           Command to Execute
 
-kbash will print the status_code and url for each target responsed to exploit.
+kbash will print the status_code and url for each target responsed to exploitation.
 
 #proxy
 For socks proxy support. 
