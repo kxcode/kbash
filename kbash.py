@@ -50,7 +50,7 @@ class Google(threading.Thread):
 		print "Google Search Done"
 
 	def google(self, dork, index):
-		url = 'https://www.google.com/search?q='+urllib2.quote(dork)+'&_'+str(random.random())+'&cr=countryCN&start='+str(index);
+		url = 'https://www.google.com/search?q='+urllib2.quote(dork)+'&_'+str(random.random())+'&start='+str(index);
 		
 		#userAgent = 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.41 Safari/537.36';
 		#headers = {"User-Agent":userAgent}
@@ -61,6 +61,11 @@ class Google(threading.Thread):
 
 		p = re.compile("/url\\?q=(.*?)&")
 		result = re.findall(p,r.content)
+
+		f = open("./result_"+str(index),"w")
+		f.write(r.content)
+		f.close()
+
 		for link in result:
 			if "googleusercontent" not in link:
 				#print link
@@ -82,7 +87,7 @@ parser.add_argument('-c', dest='page_count',
                     default=1)
 parser.add_argument('-d', dest='dork',
                     help="Custom Google Dork",
-                    default="filetype:sh inurl:cgi-bin")
+                    default="filetype:sh inurl:cgi")
 parser.add_argument('-e', dest='cmd',
                     help="Command to Execute",
                     default="whoami")
