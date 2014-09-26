@@ -73,10 +73,6 @@ class Google(threading.Thread):
 		p = re.compile("/url\\?q=(.*?)&")
 		result = re.findall(p,r.content)
 
-		f = open("./result_"+str(index),"w")
-		f.write(r.content)
-		f.close()
-
 		for link in result:
 			if "googleusercontent" not in link:
 				#print link
