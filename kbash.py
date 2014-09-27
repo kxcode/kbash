@@ -143,9 +143,10 @@ print "[ PAGE ]\t"+str(args.page_count)
 dork = args.dork
 
 
-if "url" in args:
+if args.url:
 	print "[ ATTACK ] " + args.url
-	print "[ Tips ] you should specific the absolute path for the command to execute"
+	if args.cmd:
+		print "[ Tips ] you should specific the absolute path for the command to execute"
 	payload = Payload(mode="single")
 	payload.targets.put(args.url)
 	payload.launch = True
