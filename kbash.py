@@ -58,7 +58,7 @@ class Payload(threading.Thread):
 					self.launch = True
 				else:
 					self.launch = False
-				time.sleep(random.random()*3)
+				time.sleep(random.uniform(1,3))
 		except Exception as e:
 			print "Cant Connect to Google!"
 		finally:
