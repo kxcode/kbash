@@ -8,8 +8,7 @@ CVE-2014-6271
 Version 2.1
 #usage
 
-Batch Exploit GNU Bash Env Command Injection base on Google. Version 2.1 code
-by kingx - http://cih.so
+Batch Exploit GNU Bash Env Command Injection base on Google. Version 2.1 
 
 optional arguments:
   -h, --help       show this help message and exit
