@@ -8,18 +8,20 @@ CVE-2014-6271
 Version 2.1
 #usage
 
-Exploit GNU Bash Env Command Injection via Google. 
-
+Batch Exploit GNU Bash Env Command Injection base on Google. Version 2.1 code
+by kingx - http://cih.so
 
 optional arguments:
+  -h, --help       show this help message and exit
+  -u URL           specific a single Target Url
+  -d DORK          Custom Google Dork,Using Google Search to find targets
+  -t THREAD_COUNT  thread count
+  -c PAGE_COUNT    crawl google page count
+  -e CMD           Command to Execute
+  -p PROXY         proxy,support:socks4,socks5,http eg:
+                   socks5://127.0.0.1:1234
 
-
--  -h, --help       show this help message and exit
--  -t THREAD_COUNT  thread count
--  -c PAGE_COUNT    google page count
--  -e CMD           Command to Execute
--  -d DORK          Custom Google Dork
--  -p PROXY         Proxy String
+License, requests, etc: https://github.com/KxCode
 
 kbash will print the status_code and url for each target responsed to exploitation.
 
