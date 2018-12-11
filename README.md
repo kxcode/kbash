@@ -6,7 +6,8 @@ Exploit GNU Bash Env Command Injection via Google.
 CVE-2014-6271
 
 Version 2.1
-#usage
+
+# usage
 
 Batch Exploit GNU Bash Env Command Injection base on Google. Version 2.1 
 
