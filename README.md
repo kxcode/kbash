@@ -9,6 +9,7 @@ Version 2.1
 
 # usage
 
+```
 Batch Exploit GNU Bash Env Command Injection base on Google. Version 2.1 
 
 optional arguments:
@@ -22,12 +23,15 @@ optional arguments:
                    socks5://127.0.0.1:1234
 
 License, requests, etc: https://github.com/KxCode
+```
 
 kbash will print the status_code and url for each target responsed to exploitation.
 
-#proxy
+# proxy
+
 For socks proxy support. 
-  1. Download Sockipy project from http://sourceforge.net/projects/socksipy/?source=directory.
+
+  1. Download Sockipy project from <http://sourceforge.net/projects/socksipy/?source=directory>.
   2. Copy the socks.py into the same directory as kbash.py
 
 
